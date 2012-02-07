@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash                                                                                                                                                                                                                                                                                                                                                                 
 
 #author David Borges
 #version 1.0
@@ -10,7 +10,7 @@ route=eth0
 encoders=0
 
 if [ -e "test.csv" ];
-then 
+then
 rm test.csv
 fi
 
@@ -25,8 +25,9 @@ filename=${filename:="test.csv"}
 
 while [ $encoders -lt 1 ]
 do
-echo "How many encoders will you be configuring?"
+echo "How many encoders will you be configuring? (10):"
 read enc
+enc=${enc:=10}
 encoders=$((enc+0))
 done
 
@@ -60,32 +61,21 @@ netmasketh1=${netmasketh1:="255.255.255.0"}
 
 echo "$DNU" >> $filename
 
-	arry=(${eth0//./ })
-	arry2=(${eth1//./ })
-	
-	frnt="${arry[0]}.${arry[1]}.${arry[2]}."
-	frnt2="${arry2[0]}.${arry2[1]}.${arry2[2]}."
-	
-	back=$((arry[3]+0))
-	back=$((arry2[3]+0))
-	
-	untl=$((back+$encoders))
+arry=(${eth0//./ })
+arry2=(${eth1//./ })
 
-#	xxxx=$((back-1))
+frnt="${arry[0]}.${arry[1]}.${arry[2]}."
+frnt2="${arry2[0]}.${arry2[1]}.${arry2[2]}."
 
-	for (( x=$back; x<$untl; x++ ))
-	do
-	 # Increment
-	 back=$((back+1))
-	 # Output
-		for (( c=$start; c<$until; c++ ))
-	 echo "$c,skitter-$def,$c,${frnt}${back},,$netmasketh0,${frnt2}${back},$gateway,$netmasketh1,$route" >> $filename
-		c++
-	done
+back=$((arry[3]+0))
+back=$((arry2[3]+0))
 
+untl=$((back+$encoders))
+start=0
 
-
-
+for (( x=$back; x<$untl; x++ )) ; do
+  echo "${x},skitter-${def},${x},${frnt}${x},,$netmasketh0,${frnt2}${x},${gateway},${netmasketh1},${route}" >> $filename
+done
 
 cat $filename
 rm test.csv
