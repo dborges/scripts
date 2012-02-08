@@ -72,9 +72,11 @@ back=$((arry2[3]+0))
 
 untl=$((back+$encoders))
 start=0
+i=1
 
 for (( x=$back; x<$untl; x++ )) ; do
-  echo "${x},skitter-${def},${x},${frnt}${x},,$netmasketh0,${frnt2}${x},${gateway},${netmasketh1},${route}" >> $filename
+  echo "${i},skitter-${def},${i},${frnt}${x},,$netmasketh0,${frnt2}${x},${gateway},${netmasketh1},${route}" >> $filename
+  i=$((i+1))
 done
 
 cat $filename
