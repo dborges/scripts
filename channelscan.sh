@@ -17,7 +17,7 @@ read ip
 ip=$ip
 
 echo ""
-echo "Please type in tuner 1 or 2"
+echo "Please type in tuner 0 or 1"
 read tuner
 tuner=$tuner
 
@@ -30,12 +30,6 @@ echo "Scanning Complete!!"
 echo ""
 echo "Here are all the channels available from this tuner"
 echo ""
-cat $SCANPATH$ip.scan | grep 8vsb -A4 | grep -v SCANNING
+cat $SCANPATH$ip.scan | grep -A5 8vsb | grep -v SCANNING | grep -v none | grep -v TSID
 
-
-
-
-
-
-
-
+exit 0
